@@ -74,6 +74,17 @@ class DuckDB:
                 yield loads(line)
 
     def truncate_and_insert_list(self, list_of_dicts: list[dict]):
+        """
+        Truncate the entire database, and insert a list of dicts.
+
+        Args:
+            list_of_dicts: list[dict] → A list of dicts to insert.
+
+        Output:
+            None
+
+        Time complexity → O(l)
+        """
         self.truncate()
 
         with open(self.database_path, 'w', encoding='utf-8') as database:
