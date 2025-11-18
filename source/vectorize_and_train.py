@@ -1,39 +1,3 @@
-class ModelHyperparameters:
-    def __init__(self, epochs: int, patience: int, learning_rate: float):
-        """
-        Initialize the model hyperparametrs, for the model training.
-
-        Args:
-            epochs: int → Maximum number of full training cycles to run.
-            patience: int → Epochs to wait before triggering early stopping.
-            learning_rate: float → Controls how much the weights adjust during the training.
-
-        Output:
-            None
-
-        Time complexity → O(1)
-        """
-        self.epochs: int = epochs
-        self.patience: int = patience
-        self.learning_rate: float = learning_rate
-
-class MarketMetadata:
-    def __init__(self, window_periods: int, symbol: str):
-        """
-        Start an object whit a given window preiods (in minutes), and the symbol of the market.
-
-        Args:
-            window_periods: int → Defines the window of time in weeks of the bars.
-            symbol: str → Stock ticker symbol (e.g., 'TSLA') for which historical and latest market data.
-
-        Output:
-            None
-
-        Time complexity → O(1)
-        """
-        self.window_periods: int = window_periods
-        self.symbol: str = symbol
-
 from apis.alpaca_markets import AlpacaMarkets
 
 from core.uncertainty_simple_perceptron import UncertaintySimplePerceptron
@@ -44,13 +8,16 @@ from features_vectorizer import TimeSeriesConfig, TimeConfig, NormalizationConfi
 from datetime import datetime
 
 class Train:
-    def __init__(self, model_hyperparamets: ModelHyperparameters, market_metadata: MarketMetadata, alpaca_markets_client: AlpacaMarkets, core_model: UncertaintySimplePerceptron):
+    def __init__(self, epochs: int, patience: int, learning_rate: float, window_periods: int, symbol: str, alpaca_markets_client: AlpacaMarkets, core_model: UncertaintySimplePerceptron):
         """
         Initialize the training object, where can prepare a vectorized database of data, and train a given model object.
 
         Args:
-            model_hyperparamets: ModelHyperparameters → Initialize the model hyperparametrs, for the model training.
-            market_metadata: MarketMetadata → Start an object whit a given window preiods (in minutes), and the symbol of the market.
+            epochs: int → Maximum number of full training cycles to run.
+            patience: int → Epochs to wait before triggering early stopping.
+            learning_rate: float → Controls how much the weights adjust during the training.
+            window_periods: int → Defines the window of time in weeks of the bars.
+            symbol: str → Stock ticker symbol (e.g., 'TSLA') for which historical and latest market data.
             alpaca_markets_client: AlpacaMarketsClient → Initialize the alpaca merkets client with a given key, secret and symbol.
             core_model: UncertaintySimplePerceptron → Object whit weights, bias, file paths, and metadata for the perceptron.
 
@@ -59,14 +26,18 @@ class Train:
 
         Time complexity → O(1)
         """
-        self.model_hyperparamets: ModelHyperparameters = model_hyperparamets
-        self.market_metadata: MarketMetadata = market_metadata
-        self.alpaca_markets_client: AlpacaMarkets = alpaca_markets_client
+        self.epochs: int = epochs
+        self.patience: int = patience
+        self.learning_rate: float = learning_rate
+        self.window_periods: int = window_periods
 
+        self.symbol: str = symbol
+
+        self.alpaca_markets_client: AlpacaMarkets = alpaca_markets_client
         self.core_model: UncertaintySimplePerceptron = core_model
 
-        self.training_db = DuckDB(f'{market_metadata.symbol.lower()}_test.set')
-        self.config_db = DuckDB(f'{market_metadata.symbol.lower()}_config.set')
+        self.training_db = DuckDB(f'{symbol.lower()}_test.set')
+        self.config_db = DuckDB(f'{symbol.lower()}_config.set')
 
         self.zscore_volume_obj: ZScore = None
         self.zscore_trade_count_obj: ZScore = None
@@ -82,14 +53,14 @@ class Train:
         Output:
             None
         """
-        historical_market_bars: dict[str, any] = self.alpaca_markets_client.historical_market_bars(limit_bars=None, weeks_data_window=144)[self.market_metadata.symbol]
+        historical_market_bars: dict[str, any] = self.alpaca_markets_client.historical_market_bars(limit_bars=None, weeks_data_window=144)[self.symbol]
 
         self._compute_zscore_sets(historical_market_bars)
 
         training_set: list[dict] = []
 
         for index, bar in enumerate(historical_market_bars):
-            window_periods: int = self.market_metadata.window_periods
+            window_periods: int = self.window_periods
 
             raw_window: list[dict] = historical_market_bars[index - window_periods: index]
             raw_prices_window: list[float] = [bar_dict.close for bar_dict in raw_window]
@@ -151,13 +122,9 @@ class Train:
         Output:
             None
         """
-        epochs: int = self.model_hyperparamets.epochs
-        patience: int = self.model_hyperparamets.patience
-        learning_rate: float = self.model_hyperparamets.learning_rate
-
         dataset_name: str = self.training_db.database_file_name
 
-        self.core_model.train(dataset_name, epochs, patience, learning_rate, save_model=False)
+        self.core_model.train(dataset_name, self.epochs, self.patience, self.learning_rate, save_model=False)
 
     def _compute_zscore_sets(self, historical_market_bars: list[str, any]):
         """
@@ -226,29 +193,26 @@ if __name__ == '__main__':
     Root (cd ../aardvark-uncertainty_simple_perceptron):
         python -B -m source.vectorize_and_train
     """
-    EPOCHS: int = 170
-    PATIENCE: int = 20
-    LEARNING_RATE: float = 0.0001
-
-    model_hyperparameters = ModelHyperparameters(EPOCHS, PATIENCE, LEARNING_RATE)
-
-    WINDOW_PERIODS: int = 14
-    SYMBOL: str = 'TSLA'
-
-    market_metadata = MarketMetadata(WINDOW_PERIODS, SYMBOL)
-
-    ALPACA_KEY = '1234567890'
-    ALPACA_SECRET = '1234567890'
-
-    alpaca_markets_client = AlpacaMarkets(ALPACA_KEY, ALPACA_SECRET, SYMBOL)
-
     NAME: str = 'Tesla Stocks Uncertainty Simple Perceptron HFT'
     DESCRIPTION: str = 'Uncertainty Simple Perceptron Model, for High-Frequency Trading for Tesla (risk 3:1 and 14 periods of 15 minutes).'
     AUTHOR: str = 'Dylan Sutton Chavez'
 
     core_model = UncertaintySimplePerceptron(NAME, DESCRIPTION, AUTHOR)
 
-    train = Train(model_hyperparameters, market_metadata, alpaca_markets_client, core_model)
+    SYMBOL: str = 'TSLA'
+
+    ALPACA_KEY = '1234567890'
+    ALPACA_SECRET = '1234567890'
+
+    alpaca_markets_client = AlpacaMarkets(ALPACA_KEY, ALPACA_SECRET, SYMBOL)
+
+    EPOCHS: int = 170
+    PATIENCE: int = 20
+    LEARNING_RATE: float = 0.0001
+
+    WINDOW_PERIODS: int = 14
+
+    train = Train(EPOCHS, PATIENCE, LEARNING_RATE, WINDOW_PERIODS, SYMBOL, alpaca_markets_client, core_model)
 
     train.prepare_database()
 
