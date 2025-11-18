@@ -237,8 +237,8 @@ if __name__ == '__main__':
 
     market_metadata = MarketMetadata(WINDOW_PERIODS, SYMBOL)
 
-    ALPACA_KEY = 'PKPCNM6GGLTOYE5PRMMGRU7UGF'
-    ALPACA_SECRET = '2FWHeExaUXeqfz7Q2iU8Hngx3nihRserye6Wyzktf45q'
+    ALPACA_KEY = '1234567890'
+    ALPACA_SECRET = '1234567890'
 
     alpaca_markets_client = AlpacaMarkets(ALPACA_KEY, ALPACA_SECRET, SYMBOL)
 
