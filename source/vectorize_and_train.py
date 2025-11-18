@@ -36,23 +36,6 @@ class MarketMetadata:
 
 from apis.alpaca_markets import AlpacaMarkets
 
-class AlpacaMarketsClient:
-    def __init__(self, alpaca_key: str, alpaca_secret: str, symbol: str):
-        """
-        Initialize the alpaca merkets client with a given key, secret and symbol.
-
-        Args:
-            alpaca_key: str → API key needed for authenticating requests to the Alpaca Markets.
-            alpaca_secret: str → Password that confirm and authorize access to the Alpaca API
-            symbol: str → Stock ticker symbol (e.g., 'TSLA') for which historical and latest market data.
-
-        Output:
-            None
-
-        Time complexity → O(1)
-        """
-        self.alpaca_markets_client = AlpacaMarkets(alpaca_key, alpaca_secret, symbol)
-
 from core.uncertainty_simple_perceptron import UncertaintySimplePerceptron
 from database.duck_db import DuckDB
 from feature_encoders.z_score import ZScore
@@ -61,7 +44,7 @@ from features_vectorizer import TimeSeriesConfig, TimeConfig, NormalizationConfi
 from datetime import datetime
 
 class Train:
-    def __init__(self, model_hyperparamets: ModelHyperparameters, market_metadata: MarketMetadata, alpaca_markets_client: AlpacaMarketsClient, core_model: UncertaintySimplePerceptron):
+    def __init__(self, model_hyperparamets: ModelHyperparameters, market_metadata: MarketMetadata, alpaca_markets_client: AlpacaMarkets, core_model: UncertaintySimplePerceptron):
         """
         Initialize the training object, where can prepare a vectorized database of data, and train a given model object.
 
@@ -78,7 +61,7 @@ class Train:
         """
         self.model_hyperparamets: ModelHyperparameters = model_hyperparamets
         self.market_metadata: MarketMetadata = market_metadata
-        self.alpaca_markets_client: AlpacaMarkets = alpaca_markets_client.alpaca_markets_client
+        self.alpaca_markets_client: AlpacaMarkets = alpaca_markets_client
 
         self.core_model: UncertaintySimplePerceptron = core_model
 
@@ -254,10 +237,10 @@ if __name__ == '__main__':
 
     market_metadata = MarketMetadata(WINDOW_PERIODS, SYMBOL)
 
-    ALPACA_KEY = '1234567890'
-    ALPACA_SECRET = '1234567890'
+    ALPACA_KEY = 'PKPCNM6GGLTOYE5PRMMGRU7UGF'
+    ALPACA_SECRET = '2FWHeExaUXeqfz7Q2iU8Hngx3nihRserye6Wyzktf45q'
 
-    alpaca_markets_client = AlpacaMarketsClient(ALPACA_KEY, ALPACA_SECRET, SYMBOL)
+    alpaca_markets_client = AlpacaMarkets(ALPACA_KEY, ALPACA_SECRET, SYMBOL)
 
     NAME: str = 'Tesla Stocks Uncertainty Simple Perceptron HFT'
     DESCRIPTION: str = 'Uncertainty Simple Perceptron Model, for High-Frequency Trading for Tesla (risk 3:1 and 14 periods of 15 minutes).'
