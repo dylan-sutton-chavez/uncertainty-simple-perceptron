@@ -29,7 +29,7 @@ from json import dumps
 
 from alpaca.trading.client import TradingClient
 from alpaca.trading.requests import MarketOrderRequest, StopLossRequest, TakeProfitRequest
-from alpaca.trading.enums import OrderSide, TimeInForce
+from alpaca.trading.enums import OrderSide, TimeInForce, OrderClass
 
 alpaca_key: str = getenv('ALPACA_KEY')
 alpaca_secret: str = getenv('ALPACA_SECRET')
@@ -81,6 +81,7 @@ def run_system():
             qty=1,
             side=OrderSide.BUY,
             time_in_force=TimeInForce.DAY,
+            order_class=OrderClass.BRACKET,
             take_profit=TakeProfitRequest(limit_price=last_bar_close_price + vectorized_last_window_bars['take_profit']),
             stop_loss=StopLossRequest(stop_price=last_bar_close_price - vectorized_last_window_bars['stop_loss'])
         )
@@ -92,6 +93,7 @@ def run_system():
             qty=1,
             side=OrderSide.SELL,
             time_in_force=TimeInForce.DAY,
+            order_class=OrderClass.BRACKET,
             take_profit=TakeProfitRequest(limit_price=last_bar_close_price - vectorized_last_window_bars['take_profit']),
             stop_loss=StopLossRequest(stop_price=last_bar_close_price + vectorized_last_window_bars['stop_loss'])
         )
