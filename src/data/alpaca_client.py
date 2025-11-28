@@ -57,12 +57,18 @@ class AlpacaMarkets:
 
         Time complexity → o(1)
         """
+        now_time_utc = datetime.now(UTC)
+
+        from_date = now_time_utc - timedelta(minutes=WINDOW_PERIODS * MINUTES_WINDOW)
+
         timeframe_of_n_minutes = TimeFrame(amount=MINUTES_WINDOW, unit=TimeFrameUnit.Minute)
 
         request_params = StockBarsRequest(
             symbol_or_symbols=self.symbol, 
             timeframe=timeframe_of_n_minutes, 
-            limit=WINDOW_PERIODS
+            limit=WINDOW_PERIODS,
+            start=from_date,
+            end=now_time_utc
         )
 
         return self.client.get_stock_bars(request_params)
