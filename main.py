@@ -47,7 +47,7 @@ def run_system():
 
     model_log = {
         "timestamp": str(datetime.now(UTC)),
-        "latency_s": latency_ms / 1000,
+        "latency_s": latency_ms / 10,
         "symbol": MARKET_SYMBOL,
         "model_prediction": pred,
         "net_prediction": net_pred,
