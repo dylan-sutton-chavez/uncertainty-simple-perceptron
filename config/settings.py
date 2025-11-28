@@ -11,4 +11,5 @@ DESCRIPTION: str = f"Uncertainty Simple Perceptron Model, for the market: {MARKE
 AUTHOR: str = "Dylan Sutton Chavez"
 
 # Constant for the uncertainty (epsilon) of the model
-EPSILON: float = 0.007
+
+EPSILON: float = 0.0007
