@@ -30,45 +30,39 @@ alpaca_markets_client = AlpacaMarkets(getenv('ALPACA_KEY'), getenv('ALPACA_SECRE
 better_stack_host: str = getenv('BETTER_STACK_HOST')
 better_stack_token: str = getenv('BETTER_STACK_TOKEN')
 
-def run():
-    while True:
-        start_ms: float = perf_counter()
+def run_system():
+    start_ms: float = perf_counter()
 
-        vectorize_and_train = VectorizeAndTrain(alpaca_markets_client)
+    vectorize_and_train = VectorizeAndTrain(alpaca_markets_client)
 
-        vectorize_and_train.prepare_database()
-        vectorize_and_train.train_model()
+    vectorize_and_train.prepare_database()
+    vectorize_and_train.train_model()
 
-        model: UncertaintySimplePerceptron = vectorize_and_train.core_model
-        vectorized_last_window_bars = vectorize_and_train.vectorized_last_window_bars()
+    model: UncertaintySimplePerceptron = vectorize_and_train.core_model
+    vectorized_last_window_bars = vectorize_and_train.vectorized_last_window_bars()
 
-        pred, net_pred = model.inference(vectorized_last_window_bars['features_vector'], EPSILON)
+    pred, net_pred = model.inference(vectorized_last_window_bars['features_vector'], EPSILON)
 
-        latency_ms: float = start_ms - perf_counter()
+    latency_ms: float = start_ms - perf_counter()
 
-        model_log = {
-            "timestamp": str(datetime.now(UTC)),
-            "latency_ms": latency_ms,
-            "symbol": MARKET_SYMBOL,
-            "model_prediction": pred,
-            "net_prediction": net_pred,
-            "os_health": {
-                "cpu_load": cpu_percent(0.5),
-                "cache_memmory": virtual_memory()
-            }
+    model_log = {
+        "timestamp": str(datetime.now(UTC)),
+        "latency_ms": latency_ms,
+        "symbol": MARKET_SYMBOL,
+        "model_prediction": pred,
+        "net_prediction": net_pred,
+        "os_health": {
+            "cpu_load": cpu_percent(0.5),
+            "cache_memmory": virtual_memory().percent
         }
+    }
 
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {better_stack_token}"
-        }
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {better_stack_token}"
+    }
 
-        r = post(
-            better_stack_host, 
-            headers=headers,
-            data=dumps(model_log),
-            timeout=4
-        ).status_code
+    post(better_stack_host, headers=headers, data=dumps(model_log), timeout=4)
 
 if __name__ == '__main__':
     """
@@ -79,4 +73,20 @@ if __name__ == '__main__':
     Run command (as a package '-m' and without 'byte-compile' -B): 
         python -B -m main
     """
-    run()
+    from config.settings import MINUTES_WINDOW
+
+    from time import sleep
+    
+    execution_minutes: list[int] = [0, 15, 30, 45]
+
+    while True:
+
+        current_time = datetime.now(UTC)
+        minute = current_time
+
+        if minute in execution_minutes:
+
+            run_system()
+            sleep(60 * (MINUTES_WINDOW - 1)) # Wait a few minutes to avoid overloading the CPU.
+
+        sleep(0.001)
