@@ -29,7 +29,7 @@ class VectorizeAndTrain:
 
         self.zscore_volume_obj: ZScore = None
         self.zscore_trade_count_obj: ZScore = None
-        self.market_metadatazscore_vwap_obj: ZScore = None
+        self.zscore_vwap_obj: ZScore = None
 
     def prepare_database(self):
         """
@@ -117,7 +117,7 @@ class VectorizeAndTrain:
         Output:
             dict[str, any] → A dictionary returning the take profit, stop loss, time stamp, and the features vector.
         """
-        raw_window = self.alpaca_markets_client.last_window_bars()
+        raw_window = self.alpaca_markets_client.last_window_bars()[MARKET_SYMBOL]
         raw_prices_window: list[float] = [bar_dict.close for bar_dict in raw_window]
         bar = raw_window[-1]
 
