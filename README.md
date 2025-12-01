@@ -96,6 +96,13 @@ $ export BETTER_STACK_TOKEN="a1b2c3d4e5f6g7h8i9j0"
 $ nohup python -B -m main
 ```
 
+## System Reboot Command
+
+```bash
+# If you whant to reboot the aardbark system (e.g., to update the software), you need to reboot the system and make again the repository, deleting the last launch.
+$ sudo reboot
+```
+
 ## Proprietary Agreement License
 
 The software is licensed under a proprietary agreement, maintaining closed source distribution.
