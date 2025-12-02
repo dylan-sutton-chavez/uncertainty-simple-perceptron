@@ -54,7 +54,15 @@ class AardvarkObject:
         """
         start: float = perf_counter()
 
-        vectorized_last_window_bars, last_bar_close_price = self.vectorize_and_train.vectorized_last_window_bars()
+        vectorized_last_window_bars_return = self.vectorize_and_train.vectorized_last_window_bars()
+        
+        if vectorized_last_window_bars_return is dict:
+            vectorized_last_window_bars: dict[str, any] = vectorized_last_window_bars_return['vector']
+            last_bar_close_price: float = vectorized_last_window_bars_return['last_close_price']
+
+        if vectorized_last_window_bars_return is None:
+            print("The data is missing.")
+            return
 
         pred, net_pred = self.model.inference(vectorized_last_window_bars['features_vector'], EPSILON)
 
