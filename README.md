@@ -104,9 +104,14 @@ $ nohup python3 -B -m main &
 # If you whant to reboot the aardbark system (e.g., to update the software), you need to reboot the system and make again the repository, deleting the last launch.
 $ sudo reboot
 $ rmdir aardvark-package
+
+# Check the current Python3 live processes.
+$ ps aux | grep "python3"
+
+# Kill all the Python3 live processes.
+$ pkill -f python3
 ```
 
 ## Proprietary Agreement License
 
 The software is licensed under a proprietary agreement, maintaining closed source distribution.
-
