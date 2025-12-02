@@ -94,8 +94,8 @@ $ export BETTER_STACK_TOKEN="a1b2c3d4e5f6g7h8i9j0"
 ## Persistence System Launching
 
 ```bash
-# Allows the continious runing even after the terminal session is closed (run the program as a package '-m' and without 'byte-compile' -B).
-$ nohup python3 -B -m main
+# Allows the continious runing even after the terminal session is closed (nohup) in asynchronous (&) — (run the program as a package '-m' and without 'byte-compile' -B).
+$ nohup python3 -B -m main &
 ```
 
 ## System Reboot Command
@@ -109,3 +109,4 @@ $ rmdir aardvark-package
 ## Proprietary Agreement License
 
 The software is licensed under a proprietary agreement, maintaining closed source distribution.
+
