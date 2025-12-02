@@ -103,6 +103,7 @@ $ nohup python3 -B -m main
 ```bash
 # If you whant to reboot the aardbark system (e.g., to update the software), you need to reboot the system and make again the repository, deleting the last launch.
 $ sudo reboot
+$ rmdir aardvark-package
 ```
 
 ## Proprietary Agreement License
