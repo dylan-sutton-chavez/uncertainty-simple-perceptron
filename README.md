@@ -61,8 +61,9 @@ $ git clone https://github.com/dylan-sutton-chavez/aardvark-package.git
 Username for 'https://github.com': your-github-user
 Password for 'https://your-github-user@github.com': personal-acess-token
 
-# Move to the cloned GitHub repository.
+# Move to the cloned GitHub repository and create the file for the datasets.
 $ cd aardvark-package
+$ mkdir datasetes
 ```
 
 > How to Obtain the Personal Acess Token (PAC): GitHub Website → Settings → Developer Settings → Personal Acess Tokens → Tokens (Classic) → Generate New Token.
@@ -106,3 +107,4 @@ $ sudo reboot
 ## Proprietary Agreement License
 
 The software is licensed under a proprietary agreement, maintaining closed source distribution.
+
