@@ -98,7 +98,7 @@ $ export BETTER_STACK_TOKEN="a1b2c3d4e5f6g7h8i9j0"
 $ nohup python3 -B -m main &
 ```
 
-## System Reboot Command
+## System Reboot and Python Analysis Command
 
 ```bash
 # If you whant to reboot the aardbark system (e.g., to update the software), you need to reboot the system and make again the repository, deleting the last launch.
