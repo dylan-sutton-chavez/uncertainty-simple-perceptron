@@ -58,27 +58,6 @@ class AardvarkObject:
 
         pred, net_pred = self.model.inference(vectorized_last_window_bars['features_vector'], EPSILON)
 
-        latency: float = perf_counter() - start
-
-        model_log = {
-            "timestamp": str(datetime.now(UTC)),
-            "latency_seconds": latency,
-            "symbol": MARKET_SYMBOL,
-            "model_prediction": pred,
-            "net_prediction": net_pred,
-            "os_health": {
-                "cpu_load": cpu_percent(0.5),
-                "cache_memmory": virtual_memory().percent
-            }
-        }
-
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {self.better_stack_token}"
-        }
-
-        post(self.better_stack_host, headers=headers, data=dumps(model_log), timeout=4)
-
         if pred == 1:
             order = MarketOrderRequest(
                 symbol=MARKET_SYMBOL, 
@@ -102,6 +81,27 @@ class AardvarkObject:
                 stop_loss=StopLossRequest(stop_price=last_bar_close_price + vectorized_last_window_bars['stop_loss'])
             )
             self.alpaca_trading_client.submit_order(order)
+
+        latency: float = perf_counter() - start
+
+        model_log = {
+            "timestamp": str(datetime.now(UTC)),
+            "latency_seconds": latency,
+            "symbol": MARKET_SYMBOL,
+            "model_prediction": pred,
+            "net_prediction": net_pred,
+            "os_health": {
+                "cpu_load": cpu_percent(0.5),
+                "cache_memmory": virtual_memory().percent
+            }
+        }
+
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.better_stack_token}"
+        }
+
+        post(self.better_stack_host, headers=headers, data=dumps(model_log), timeout=4)
 
     def train_model(self):
         """
