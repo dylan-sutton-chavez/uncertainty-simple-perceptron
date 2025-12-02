@@ -108,6 +108,3 @@ $ sudo reboot
 ## Proprietary Agreement License
 
 The software is licensed under a proprietary agreement, maintaining closed source distribution.
-
-
-
