@@ -115,14 +115,23 @@ class VectorizeAndTrain:
             None
             
         Output:
-            dict[str, any] → A dictionary returning the take profit, stop loss, time stamp, and the features vector.
-            float → The close price of the last bar.
+            dict[str, any] → A dictionary returning the take profit, stop loss, time stamp, and the features vector. And the close price of the last bar.
+            None → The market is closed or the length of the data is short.
         """
-        raw_window = self.alpaca_markets_client.last_window_bars()[MARKET_SYMBOL]
-        raw_prices_window: list[float] = [bar_dict.close for bar_dict in raw_window]
-        bar = raw_window[-1]
+        raw_window = self.alpaca_markets_client.last_window_bars()
 
-        return self._model_vectorization(bar, raw_prices_window), bar.close
+        if MARKET_SYMBOL not in raw_window:
+            return None
+
+        data = raw_window[MARKET_SYMBOL]
+
+        if len(data) < WINDOW_PERIODS:
+            return None
+
+        raw_prices_window: list[float] = [bar_dict.close for bar_dict in data]
+        bar = data[-1]
+
+        return {"vector": self._model_vectorization(bar, raw_prices_window), "last_close_price": bar.close}
 
     def _compute_zscore_sets(self, historical_market_bars: list[str, any]):
         """
@@ -191,5 +200,11 @@ if __name__ == '__main__':
 
     model = vectorize_and_train.core_model
 
-    vectorized_last_window_bars, _ = vectorize_and_train.vectorized_last_window_bars()
-    print(vectorized_last_window_bars)
+    vectorized_last_window_bars = vectorize_and_train.vectorized_last_window_bars()
+    
+    if vectorized_last_window_bars is dict:
+        vector: dict[str, any] = vectorized_last_window_bars['vector']
+        last_price: float = vectorized_last_window_bars['last_close_price']
+
+    if vectorized_last_window_bars is None:
+        print("The data is missing.")
