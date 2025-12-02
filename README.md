@@ -43,7 +43,7 @@ The cloud provider platform that uses this architecture is Amazon Web Services (
 $ sudo apt update
 
 # Install the last python3 aviable version and verify the installation.
-$ apt install python3
+$ sudo apt install python3
 $ python3 --version
 
 # Install the pip packages manager and the build essentials.
@@ -107,3 +107,4 @@ $ sudo reboot
 ## Proprietary Agreement License
 
 The software is licensed under a proprietary agreement, maintaining closed source distribution.
+
