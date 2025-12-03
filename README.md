@@ -4,7 +4,7 @@
 
 ## Key System Concepts
 
-- **Uncertainty Step Function:** Three-state outputs (0.0, 0.5, 1.0) with configurable epsilon (ε) threshold: $ℎ(𝑥) = 0.0 (𝑥 < − ε), 0. 5 (− ε ≤ 𝑥 ≤ ε), 1.0 (𝑥 > ε)$.
+- **Uncertainty Step Function:** Three-state outputs (0.0, 0.5, 1.0) with configurable epsilon (ε) threshold: $ℎ(𝑥) = 0.0 (𝑥 < − ε), 0.5 (− ε ≤ 𝑥 ≤ ε), 1.0 (𝑥 > ε)$.
 
 - **Early Stopping:** Built-in patience-based early stopping to prevent overfitting.
 
@@ -22,34 +22,34 @@
 
 - **Z-Score:** Normalize a given value, within a vector using the Z-Score standardization.
 
-- **Pipeline:** Combine all feature encoders into an unifed vector.
+- **Pipeline:** Combine all feature encoders into a unified vector.
 
 **Data Components**
 
-- **Alpaca Client:** API client wrapper for ferching historical and real-time market data.
+- **Alpaca Client:** API client wrapper for fetching historical and real-time market data.
 
 - **Persistence:** Lightweight JSON-inline lazy loading database for storing of data.
 
-**Obervability and Monitoring**
+**Observability and Monitoring**
 
 - **Better Stack:** An observability and monitoring platform, that combine graphs, logs, incidents management, and machine learning.
 
-## Cloud Service Managment
+## Cloud Service Management
 
-The cloud provider platform that uses this architecture is Amazon Web Services (AWS) with the Ubuntu Operating System. You can use Remote SSH to manage your server in Visual Studio Code (VSC). For preference use an AWS in the region of 'us-east-1' and minimum an t2.small, because the nearest and more important stock exchange is in New York.
+The system is deployed on Amazon Web Services (AWS), running on the Ubuntu operating system. You can use Remote SSH to manage your server in Visual Studio Code (VSC). For preference use an AWS in the region of us-east-1 and minimum a t2.small instance.
 
 ```bash
-# Update the package list to ensure the correct managment.
+# Update the package list to ensure proper package management.
 $ sudo apt update
 
-# Install the last python3 aviable version and verify the installation.
+# Install the latest available Python 3 version and verify the installation.
 $ sudo apt install python3
 $ python3 --version
 
-# Install the pip packages manager and the build essentials.
+# Install the pip packages manager and build-essential.
 $ sudo apt install python3-pip build-essential
 
-# Check if git us installed, and if not, install it.
+# Check if git is installed, and if not, install it.
 $ sudo apt install git
 ```
 
@@ -59,14 +59,14 @@ $ sudo apt install git
 # Clone the GitHub repository.
 $ git clone https://github.com/dylan-sutton-chavez/aardvark-package.git
 Username for 'https://github.com': your-github-user
-Password for 'https://your-github-user@github.com': personal-acess-token
+Password for 'https://your-github-user@github.com': personal-access-token
 
 # Move to the cloned GitHub repository and create the file for the datasets.
 $ cd aardvark-package
 $ mkdir datasets
 ```
 
-> How to Obtain the Personal Acess Token (PAC): GitHub Website → Settings → Developer Settings → Personal Acess Tokens → Tokens (Classic) → Generate New Token.
+> How to Obtain the Personal Access Token (PAC): GitHub Website → Settings → Developer Settings → Personal Access Tokens → Tokens (Classic) → Generate New Token.
 
 ## Libraries Installation (Python: 3.13.9+)
 
@@ -79,10 +79,10 @@ $ mkdir datasets
 $ pip install -r requirements.txt
 ```
 
-## Enviroment Initialization
+## Environment Initialization
 
 ```bash
-# Initialize the Alpaca Client enviroment variables (Key and Secret).
+# Initialize the Alpaca client environment variables (API key and secret).
 $ export ALPACA_KEY="a1b2c3d4e5f6g7h8i9j0"
 $ export ALPACA_SECRET="a1b2c3d4e5f6g7h8i9j0"
 
@@ -94,22 +94,24 @@ $ export BETTER_STACK_TOKEN="a1b2c3d4e5f6g7h8i9j0"
 ## Persistence System Launching
 
 ```bash
-# Allows the continious runing even after the terminal session is closed (nohup) in asynchronous (&) — (run the program as a package '-m' and without 'byte-compile' -B).
+# Allows the process to keep running continuously even after the terminal session closes (nohup) in asynchronous (&) — (run the program as a package '-m' and without 'byte-compile' -B).
 $ nohup python3 -B -m main &
 ```
 
 ## System Reboot and Python Analysis Command
 
 ```bash
-# If you whant to reboot the aardbark system (e.g., to update the software), you need to reboot the system and make again the repository, deleting the last launch.
+# Reboot the server (e.g., after applying system-level updates).
 $ sudo reboot
-$ rm -rf aardvark-package
 
-# Check the current Python3 live processes.
+# List all active Python 3 processes (useful for debugging or ensuring the system is not running multiple instances).
 $ ps aux | grep "python3"
 
-# Kill all the Python3 live processes.
+# Terminate all active Python 3 processes.
 $ pkill -f python3
+
+# Remove the local repository ONLY if you intentionally want a fresh clone.
+$ rm -rf aardvark-package
 ```
 
 ## Proprietary Agreement License
