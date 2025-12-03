@@ -121,7 +121,7 @@ class VectorizeAndTrain:
         raw_window = self.alpaca_markets_client.last_window_bars()
 
         try:
-           data = raw_window[MARKET_SYMBOL]
+            data = raw_window[MARKET_SYMBOL]
 
             if len(data) < WINDOW_PERIODS:
                 print(data)
