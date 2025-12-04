@@ -125,7 +125,7 @@ class VectorizeAndTrain:
 
             raw_prices_window: list[float] = [bar_dict.close for bar_dict in data]
 
-            if len(raw_prices_window) < MARKET_SYMBOL:
+            if len(raw_prices_window) < WINDOW_PERIODS:
                 return None
 
             bar = data[-1]
