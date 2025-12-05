@@ -72,8 +72,8 @@ class AardvarkObject:
                 side=OrderSide.BUY,
                 time_in_force=TimeInForce.DAY,
                 order_class=OrderClass.BRACKET,
-                take_profit=TakeProfitRequest(limit_price=last_bar_close_price + vectorized_last_window_bars['take_profit']),
-                stop_loss=StopLossRequest(stop_price=last_bar_close_price - vectorized_last_window_bars['stop_loss'])
+                take_profit=TakeProfitRequest(limit_price=round(last_bar_close_price + vectorized_last_window_bars['take_profit'], 2)),
+                stop_loss=StopLossRequest(stop_price=round(last_bar_close_price - vectorized_last_window_bars['stop_loss'], 2))
             )
             self.alpaca_trading_client.submit_order(order)
 
@@ -84,8 +84,8 @@ class AardvarkObject:
                 side=OrderSide.SELL,
                 time_in_force=TimeInForce.DAY,
                 order_class=OrderClass.BRACKET,
-                take_profit=TakeProfitRequest(limit_price=last_bar_close_price - vectorized_last_window_bars['take_profit']),
-                stop_loss=StopLossRequest(stop_price=last_bar_close_price + vectorized_last_window_bars['stop_loss'])
+                take_profit=TakeProfitRequest(limit_price=round(last_bar_close_price - vectorized_last_window_bars['take_profit'], 2)),
+                stop_loss=StopLossRequest(stop_price=round(last_bar_close_price + vectorized_last_window_bars['stop_loss'], 2))
             )
             self.alpaca_trading_client.submit_order(order)
 
