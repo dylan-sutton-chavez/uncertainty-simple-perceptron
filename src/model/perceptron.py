@@ -368,9 +368,7 @@ class UncertaintySimplePerceptron:
 
         Time complexity → O(D) OR O(1)
         """
-        time_ms: float = round(elapsed_time * 1000, 6)
-
-        current_epoch: str = f'Current Epoch: {epoch + 1}/{epochs} | Error Rate: {error_rate} | Elapsed Time (ms): {time_ms}'
+        current_epoch: str = f'Current Epoch: {epoch + 1}/{epochs} | Error Rate: {error_rate} | Elapsed Time: {elapsed_time}'
 
         if not truncate_log:
             current_epoch += f'\n   Bias: {self.bias} | Weights: {self.weights}'
@@ -403,4 +401,5 @@ if __name__ == '__main__':
     uncertainty_simple_perceptron.train(json_db, save_model=False)
 
     # Execute Fine-Tuning Phase (requires a previous model file).
+
     # uncertainty_simple_perceptron.fine_tuning(json_db, save_model=False, model_name='You need a model before.')
