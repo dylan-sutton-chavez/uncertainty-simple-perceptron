@@ -36,7 +36,7 @@
 
 ## Cloud Service Management
 
-The system is deployed on Amazon Web Services (AWS), running on the Ubuntu operating system. You can use Remote SSH to manage your server in Visual Studio Code (VSC). For preference use an AWS in the region of us-east-1 and minimum a t2.small instance.
+The system is deployed on Amazon Web Services (AWS), running on the Ubuntu operating system. You can use Remote SSH to manage your server in Visual Studio Code (VSC). For preference use an AWS in the region of us-east-1 and minimum a t3.small instance.
 
 ```bash
 # Update the package list to ensure proper package management.
