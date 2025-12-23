@@ -1,4 +1,4 @@
-# Uncertainty_Simple_Perceptron_for_Noise_and_Outliers_Prediction.pdf
+# Uncertainty Simple Perceptron for Noise and Outliers Prediction
 
 > A linear perceptron leveraging Cover's Theorem via high-dimensional vectorization. It employs a modified step function with a defined epsilon threshold to quantify uncertainty, effectively filtering dataset noise. This document describes the architecture and usage of "Aardvark" in production.
 
@@ -127,3 +127,4 @@ The software is licensed under a proprietary agreement, maintaining closed sourc
 ## Backtest
 
 The system has been tested in: backtest.pdf. Some libraries/packages have been renamed or refactored within the repository, but the math is the same.
+
