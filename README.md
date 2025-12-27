@@ -1,6 +1,6 @@
 # Uncertainty-Aware Simple Perceptron
 
-> A linear perceptron leveraging Cover's Theorem via high-dimensional vectorization. It employs a modified step function with a defined epsilon threshold to quantify uncertainty, effectively filtering dataset noise. This document describes the architecture and usage of "Aardvark" in production.
+> A linear perceptron leveraging Cover's Theorem via high-dimensional vectorization. It employs a modified step function with a defined epsilon threshold to quantify uncertainty, effectively filtering dataset noise. This document describes the architecture and usage in production.
 
 ## Key System Concepts
 
@@ -122,7 +122,7 @@ $ tail -f <file-name>
 
 ## Proprietary Agreement License
 
-The software is licensed under a proprietary agreement, maintaining closed source distribution.
+Permission is hereby granted, free of charge, to use, copy, and distribute software.
 
 ## Backtest
 
