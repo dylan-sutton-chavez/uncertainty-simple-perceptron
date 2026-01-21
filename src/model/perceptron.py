@@ -10,6 +10,9 @@ from os import getcwd, path
 from json import dump, load
 from re import sub
 from time import strftime, perf_counter
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(message)s')
 
 class UncertaintySimplePerceptron:
     def __init__(self, name: str = None, description: str = None, author: str = None):
@@ -37,6 +40,9 @@ class UncertaintySimplePerceptron:
         self.name: str = name
         self.description: str = description
         self.author: str = author
+
+        # Logging configuration.
+        self.logger = logging.getLogger()
 
     def train(self, json_dataset_object: JsonFileStore, truncate_logs: bool = True, save_model: bool = True):
         """
@@ -165,7 +171,7 @@ class UncertaintySimplePerceptron:
             error_rate: float = len(errors) / dataset_length
 
             epoch_log = self._epoch_log(epoch, EPOCHS, error_rate, elapsed_time, truncate_logs)
-            print(epoch_log)
+            self.logger.info(epoch_log)
 
             total_time += elapsed_time
 
@@ -184,12 +190,12 @@ class UncertaintySimplePerceptron:
             # Check if the patience has been surpassed.
             if patience_counter >= PATIENCE:
 
-                print(f'Early Stopping Trigged at Epoch {epoch + 1} — No Improvement in Error Rate for {PATIENCE} epochs.')
+                self.logger.info(f'Early Stopping Trigged at Epoch {epoch + 1} — No Improvement in Error Rate for {PATIENCE} epochs.')
                 
                 self.weights = bst_weights
                 self.bias = bst_bias
 
-                print(f'Model Restored from Epoch {bst_epoch} (Error Rate: {best_error_rate}).')
+                self.logger.info(f'Model Restored from Epoch {bst_epoch} (Error Rate: {best_error_rate}).')
 
                 if save_model:
                     save_msg = self._save_model()
@@ -197,17 +203,17 @@ class UncertaintySimplePerceptron:
                 else:
                     save_msg = 'Model Saving is Disabled.'
 
-                print(f'Early Stopping — {save_msg}')
+                self.logger.info(f'Early Stopping — {save_msg}')
                 return
 
         # Training is completed without early stopping.
 
-        print(f'Training Finished After {epoch + 1} Epochs.')
+        self.logger.info(f'Training Finished After {epoch + 1} Epochs.')
 
         self.weights = bst_weights
         self.bias = bst_bias
 
-        print(f'Model Restored from Epoch {bst_epoch} (Error Rate: {best_error_rate}).')
+        self.logger.info(f'Model Restored from Epoch {bst_epoch} (Error Rate: {best_error_rate}).')
 
         if save_model:   
             save_msg: str = self._save_model()

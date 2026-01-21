@@ -1,6 +1,6 @@
-# Uncertainty Simple Perceptron
+# Revisiting Rosenblatt Perceptron: Robust High-Entropy Classification via Uncertainty Margins
 
-> A linear perceptron leveraging Cover's Theorem via high-dimensional vectorization. It employs a modified step function with a defined epsilon threshold to quantify uncertainty, effectively filtering dataset noise. This document describes the architecture and usage in production.
+A linear perceptron leveraging Cover's Theorem via high-dimensional vectorization. It employs a modified step function with a defined epsilon threshold to quantify uncertainty, effectively filtering dataset noise. This document describes the architecture and usage in production.
 
 ## Key System Concepts
 
@@ -8,7 +8,7 @@
 
 - **Early Stopping:** Built-in patience-based early stopping to prevent overfitting.
 
-- **Object Based:** JSON and object based models saving, with metadata and timestamps.
+- **Object Based:** JSON-in-line and object based models saving, with metadata and timestamps.
 
 - **Fine-tuning Capabilities:** Support for loading and continuing from saved models.
 
@@ -57,7 +57,7 @@ $ sudo apt install git
 
 ```bash
 # Clone the GitHub repository.
-$ git clone https://github.com/dylan-sutton-chavez/aardvark-package.git
+$ git clone https://github.com/dylan-sutton-chavez/uncertainty-simple-perceptron
 Username for 'https://github.com': your-github-user
 Password for 'https://your-github-user@github.com': personal-access-token
 
@@ -111,7 +111,7 @@ $ ps aux | grep "python3"
 $ sudo pkill -f python3
 
 # Remove the local repository ONLY if you intentionally want a fresh clone (delete all contents → -rf).
-$ rm -rf aardvark-package
+$ rm -rf uncertainty-simple-perceptron
 
 # Shows all the content of a file and print in the output.
 $ cat <file-name>
@@ -124,6 +124,6 @@ $ tail -f <file-name>
 
 Permission is hereby granted, free of charge, to use, copy, and distribute software.
 
-## Backtest
+## Non-stationary Enviroments Testing
 
-The system has been tested in: backtest.pdf. Some libraries/packages have been renamed or refactored within the repository, but the math is the same.
+The system has been tested in: non-stationary-enviroments-testing.pdf. Some libraries/packages have been renamed or refactored within the repository, but the math is the same.

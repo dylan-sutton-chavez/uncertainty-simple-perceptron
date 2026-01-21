@@ -18,10 +18,10 @@ from alpaca.trading.client import TradingClient
 from alpaca.trading.requests import MarketOrderRequest, StopLossRequest, TakeProfitRequest
 from alpaca.trading.enums import OrderSide, TimeInForce, OrderClass
 
-class AardvarkObject:
+class Server:
     def __init__(self):
         """
-        Initialize the 'AardvarkObject' object in memory, and start all the enviroment keys, clients and the model.
+        Initialize the 'Server' object in memory, and start all the enviroment keys, clients and the model.
 
         Args:
             None
@@ -137,7 +137,7 @@ if __name__ == '__main__':
     from time import sleep
     
     execution_minutes: list[int] = [0, 15, 30, 45]
-    aardvark_object = AardvarkObject()
+    server_object = Server()
 
     while True:
 
@@ -146,9 +146,9 @@ if __name__ == '__main__':
 
         if minute in execution_minutes:
 
-            aardvark_object.run()
+            server_object.run()
             sleep(90) # Whait nineteen seconds to prevent double inference.
 
-            aardvark_object.train_model()
+            server_object.train_model()
 
         sleep(0.001)
