@@ -9,7 +9,7 @@
 \usepackage{xcolor}
 \usepackage{tikz}
 \usepackage{float}
-\usepackage{url}
+\usepackage{hyperref}
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
@@ -17,7 +17,13 @@
 
 \title{Revisiting Rosenblatt’s Perceptron: Robust High-Entropy Classification via Uncertainty Margins}
 
-\author{\IEEEauthorblockN{Anonymous Author(s) Affiliation omitted for double-blind review}}
+
+\author{
+\IEEEauthorblockN{1\textsuperscript{st} Dylan Sutton Chavez}
+\IEEEauthorblockA{\textit{Independent Research} \\
+Mexico City, Mexico \\
+c.sutton.dylan@gmail.com}
+}
 
 \maketitle
 
@@ -107,7 +113,7 @@ Fig. 1 illustrates the modified step function with the uncertainty margin $\epsi
 \begin{figure}[H]
     \centering
     \caption{Uncertainty-Step-Function}
-    \label{tab:Uncertainty-Step-Function}
+    \label{fig:Uncertainty-Step-Function}
     \begin{tikzpicture}[x=1.5cm, y=1.8cm, thick, >=stealth]
         \draw[->] (-2,0) -- (2,0) node[right] {$z$};
         \draw[->] (0,-0.2) -- (0,1.3) node[above] {$h(z)$};
@@ -248,13 +254,13 @@ These datasets were chosen because corporate time-series environments allow the 
 
 \subsubsection{Sentiment Analysis Dataset and Data Preprocessing}
 
-To demonstrate that this model is not limited to long nonstationary data, it was also challenged using a dataset for sentiment analysis, classified as positive (1) or negative (0). The dataset selected for this task was SemEval; \url{https://semeval.github.io/}, which provides sentiment labels for social media text, demonstrating the applicability of the proposed model when applied to natural language processing tasks.
+To demonstrate that this model is not limited to long nonstationary data, it was also challenged using a dataset for sentiment analysis, classified as positive (1) or negative (0). The dataset selected for this task was SemEval; \href{https://semeval.github.io/}{https://semeval.github.io/}, which provides sentiment labels for social media text, demonstrating the applicability of the proposed model when applied to natural language processing tasks.
 
 For data preparation, n-grams were used and a corresponding scale was created to normalize the token values between 0 and 1. Finally, for data analysis, techniques similar to those used in convolutional neural networks were applied, where the model operates in a manner similar to a sliding window over the sequence, performing inference depending on the size of the respective input vector.
 
 \subsubsection{Industrial Validation: NASA IMS Bearing Dataset}
 
-To further validate the model in a critical embedded sensing scenario, the NASA IMS Bearing Dataset was used. This task involves  binary classification of bearing condition (healthy (1) vs. faulty (0)) based on vibration accelerometer data; \url{https://data.nasa.gov/dataset/ims-bearings}.
+To further validate the model in a critical embedded sensing scenario, the NASA IMS Bearing Dataset was used. This task involves  binary classification of bearing condition (healthy (1) vs. faulty (0)) based on vibration accelerometer data; \href{https://data.nasa.gov/dataset/ims-bearings}{https://data.nasa.gov/dataset/ims-bearings}.
 
 Unlike the stochastic nature of markets, mechanical degradation follows physical laws; however, early fault detection remains challenging owing to signal noise during transitional degradation states. For this task, a low-dimensional input vector is engineered, consisting of root mean square (RMS), harmonic oscillators, sin, cos, kurtosis, crest factor, and skewness, computed over sliding windows.
 
@@ -262,7 +268,7 @@ Unlike the stochastic nature of markets, mechanical degradation follows physical
 
 \subsubsection{Dataset Splitting}
 
-To ensure proper data collection and avoid data leakage, the entire dataset was divided into separate subsets for training ($\%73$) and post-training evaluation ($\%27$).
+To ensure proper data collection and avoid data leakage, the entire dataset was divided into separate subsets for training ($73\%$) and post-training evaluation ($27\%$).
 
 A sliding window algorithm (using a window length of 14 samples) was implemented to iterate over the current and past observation window. The model was constrained to prevent access to future data.
 
@@ -340,7 +346,7 @@ Finally, Table~\ref{tab:Uncertainty-Accuracy-Medium} presents the coverage--accu
         Type IV & $56.84$\\
         \hline
         \multicolumn{2}{p{0.9\linewidth}}{\centering
-        The dataset was split into $\%73$ for training and $\%27$ for testing.
+        The dataset was split into $73\%$ for training and $27\%$ for testing.
         }
     \end{tabular}
 \end{table}
@@ -549,11 +555,11 @@ Crucially, the model prioritizes high precision over universal coverage($>90\%$)
 
 \section{Acknowledgment}
 
-Acknowledgments omitted for double-blind review.
+Appreciations expressed to the NASA Prognostics Center of Excellence for providing the IMS Bearing Dataset and to the SemEval organizers for making their sentiment analysis datasets available for research. Editorial support, including English editing and proofreading, was provided by Editage.
 
 \section{Resources}
 
-GitHub repository omitted for double-blind review.
+To support reproducibility and further research on resource-constrained machine learning, the complete source code for the Uncertainty-Aware Linear Perceptron is available on GitHub: \href{https://github.com/dylan-sutton-chavez/uncertainty-simple-perceptron/blob/main/src/model/perceptron.py}{https://github.com/dylan-sutton-chavez/uncertainty-simple-perceptron/blob/main/src/model/perceptron.py}. The repository includes the implementation of the core model, uncertainty step function and the manual feature engineering pipeline for nonstationary time series.
 
 \begin{thebibliography}{00}
 \bibitem{b1} K. Cho et al., ``Learning phrase representations using RNN encoder-decoder for statistical machine translation,'' in Proc. Conf. Empir. Methods Nat. Lang. Process., Doha, Qatar, Oct. 2014, pp. 1724–-1734.
