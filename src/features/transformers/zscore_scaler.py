@@ -18,7 +18,7 @@ class ZScore:
             self.std = self._standard_deviation(vector, self.means)
             
         if means is not None and std is not None:
-            self.menas = means
+            self.means = means
             self.std = std
 
     def compute_z_score(self, value: float):
@@ -87,5 +87,6 @@ if __name__ == '__main__':
 
     z_score = ZScore(vector)
     computed_z_scores: list[float] = [z_score.compute_z_score(value) for value in vector]
+
 
     print(computed_z_scores)
