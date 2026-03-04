@@ -10,5 +10,5 @@ NAME: str = f"{MARKET_SYMBOL} - Uncertainty Simple Perceptron"
 DESCRIPTION: str = f"Uncertainty Simple Perceptron Model, for the market: {MARKET_SYMBOL} (risk 3:1 and {WINDOW_PERIODS} periods of {MINUTES_WINDOW} minutes)."
 AUTHOR: str = "Dylan Sutton Chavez"
 
-# Constant for the uncertainty (epsilon) of the model
+# Constant for the uncertainty (epsilon) of the model. Calculated using the defined equation: ε = Δ · σ · Z(1−E/2).
 EPSILON: float = 0.0007
