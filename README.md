@@ -6,6 +6,8 @@ A linear perceptron leveraging Cover's Theorem via high-dimensional vectorizatio
 
 - **Uncertainty Step Function:** Three-state outputs (0.0, 0.5, 1.0) with configurable epsilon (ε) threshold: $ℎ(𝑥) = 0.0 (𝑥 < − ε), 0.5 (− ε ≤ 𝑥 ≤ ε), 1.0 (𝑥 > ε)$.
 
+- **Uncertainty Gaussian Model:** Gaussian confidence scales inversely with error: $$\epsilon = \Delta \cdot \sigma \cdot Z_{(1 - \frac{E}{2})}$$.
+
 - **Early Stopping:** Built-in patience-based early stopping to prevent overfitting.
 
 - **Object Based:** JSON-in-line and object based models saving, with metadata and timestamps.
