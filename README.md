@@ -62,7 +62,7 @@ Username for 'https://github.com': your-github-user
 Password for 'https://your-github-user@github.com': personal-access-token
 
 # Move to the cloned GitHub repository and create the file for the datasets.
-$ cd aardvark-package
+$ cd uncertainty-simple-perceptron
 $ mkdir datasets
 ```
 
@@ -123,7 +123,3 @@ $ tail -f <file-name>
 ## Proprietary Agreement License
 
 Permission is hereby granted, free of charge, to use, copy, and distribute software.
-
-## Non-stationary Enviroments Testing
-
-The system has been tested in: non-stationary-enviroments-testing.pdf. Some libraries/packages have been renamed or refactored within the repository, but the math is the same.
