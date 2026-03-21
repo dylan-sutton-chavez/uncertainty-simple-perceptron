@@ -68,7 +68,7 @@ The resulting scalar value is then passed through an activation function. Each m
 
 However, while individual linear units (weights) are computationally efficient, modern deep neural networks stack multiple layers of these operations, resulting in millions of parameters. This scale presents a challenge for deployment on embedded systems with limited memory.
 
-The mid-20th century experienced a \textit{``machine learning winter''}. Models such as the simple perceptron lacked the geometric capacity to solve problems such as XOR \cite{b6}, leading to the decline of these models, and they were largely used as a foundation for subsequent model generations.
+The late 20th century experienced a \textit{``machine learning winter''}. Models such as the simple perceptron lacked the geometric capacity to solve problems such as XOR \cite{b6}, leading to the decline of these models, and they were largely used as a foundation for subsequent model generations.
 
 Although the nonlinear limitations of the simple perceptron with respect to the XOR problem led to the prioritization of multilayer architectures \cite{b6}, current energy constraints in edge computing warrant a re-evaluation of linear models when coupled with robust feature engineering.
 
@@ -151,11 +151,7 @@ This function, based on a Gaussian formulation, adjusts the confidence of the mo
 
 Where $Z_{(1 - \frac{E}{2})}$ represents the critical value of the standard normal distribution corresponding to the desired confidence level, allocating a probability of $\frac{E}{2}$ to each tail of the distribution.
 
-Central Limit Theorem (CLT). The projected activation z = w·x is a dot product computed as a sum of d terms:
-
-\begin{equation}
-\sum_{i=1}^{n} w_i x_i
-\end{equation}
+Central Limit Theorem (CLT). The projected activation z = w·x is a dot product computed as a sum of d terms.
 
 By the CLT, this sum converges in distribution to a Gaussian as d increases, regardless of the marginal distribution of each individual feature $w_i$. This convergence holds even for heavy-tailed inputs, such as financial returns, provided that d is sufficiently large and the terms are not dominated by a single component.
 
@@ -423,8 +419,6 @@ These tables present the coverage–accuracy trade-off obtained on the evaluatio
     \end{tabular}
 \end{table}
 
-Where the $55 – 57\%$ baseline accuracy (Table IV) is consistent with industry benchmarks; The Renaissance Technologies Medallion Fund operated at a $$\approx 50.75\%$$ per-trade win rate \cite{b13}.
-
 \subsection{Sentiment Analysis Results}
 
 The performance in the SemEval sentiment classification task is summarized in Table~\ref{tab:NLP-SemEval}.
@@ -589,11 +583,11 @@ Crucially, the model prioritizes high precision over universal coverage($>90\%$)
 
 \section{Acknowledgment}
 
-Anonymous Author(s) Affiliation omitted for double-blind review
+Omitted for double-blind review
 
 \section{Resources}
 
-Anonymous Author(s) Affiliation omitted for double-blind review
+GitHub and other resources omitted for double-blind review
 
 \begin{thebibliography}{00}
 \bibitem{b1} J. Kim, M. S. Kim, J. H. Park, and J. Kim, ``Uncertainty-Aware Deep Reinforcement Learning Approach for Computational Molecular Design,'' Ind. Eng. Chem. Res., vol. 64, no. 5, 2025.
@@ -608,7 +602,6 @@ Anonymous Author(s) Affiliation omitted for double-blind review
 \bibitem{b10} K. Pearson, ``Contributions to the Mathematical Theory of Evolution,'' Philos. Trans. A Math Phys. Eng. Sci., vol. 185, pp. 71-–110, 1894.
 \bibitem{b11} A. Kumar, S. Goyal, and M. Varma, ``Resource-efficient Machine Learning in 2 KB RAM for the Internet of Things,'' in Proc 34th Int. Conf. Mach. Learn., 2017, pp. 1935--1944.
 \bibitem{b12} A. Kusupati et al., ``FastGRNN: A Fast, Accurate, Stable, and Tiny RNN for Edge Computing,'' in Proc. 32nd Annu. Conf. Neural Inf. Process. Syst., Montreal, Canada, Dec. 2018.
-\bibitem{b13} G. Zuckerman, ``The Man Who Solved the Market: How Jim Simons Launched the Quant Revolution,'' Portfolio/Penguin, New York, NY, USA, 2019.
 \end{thebibliography}
 
 \end{document}
